@@ -2,9 +2,10 @@ package io.github.matek2305.pt.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.time.LocalDateTime;
 
 /**
@@ -12,7 +13,6 @@ import java.time.LocalDateTime;
  */
 @Data
 @Entity
-@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class Match extends BaseEntity {
 
@@ -21,6 +21,8 @@ public class Match extends BaseEntity {
     private int homeTeamScore;
     private int awayTeamScore;
     private LocalDateTime startDate;
+
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     public enum Status {
