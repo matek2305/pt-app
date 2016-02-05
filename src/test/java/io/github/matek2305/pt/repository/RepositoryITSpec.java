@@ -1,6 +1,6 @@
 package io.github.matek2305.pt.repository;
 
-import io.github.matek2305.pt.repository.config.RepositoryConfiguration;
+import io.github.matek2305.pt.repository.config.RepositoryTestConfiguration;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,7 +12,7 @@ import java.lang.annotation.*;
  */
 @Inherited
 @IntegrationTest
-@ContextConfiguration(loader = SpringApplicationContextLoader.class, classes = RepositoryConfiguration.class)
+@ContextConfiguration(loader = SpringApplicationContextLoader.class, classes = RepositoryTestConfiguration.class)
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RepositoryITSpec {
