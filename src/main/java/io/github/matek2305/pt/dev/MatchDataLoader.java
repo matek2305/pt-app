@@ -1,12 +1,14 @@
 package io.github.matek2305.pt.dev;
 
+import com.github.matek2305.dataloader.DataLoader;
 import io.github.matek2305.pt.domain.Match;
 import io.github.matek2305.pt.repository.MatchRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.murbanski.spring.dataloader.DataLoader;
 
 import java.time.LocalDateTime;
+
+import static java.time.LocalDateTime.now;
 
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>
@@ -20,12 +22,17 @@ public class MatchDataLoader implements DataLoader {
     @Override
     public void load() {
         log.info("Loading match data ...");
-        Match testMatch = new Match();
-        testMatch.setHomeTeamName("Poland");
-        testMatch.setAwayTeamName("Germany");
-        testMatch.setStartDate(LocalDateTime.now().plusDays(2));
-        testMatch.setStatus(Match.Status.PREDICTION_AVAILABLE);
-        matchRepository.save(testMatch);
-        log.info("Match data loaded successfully");
+        createAndSavePredictionAvailable("Poland", "Germany", now().plusDays(2).withHour(20).withMinute(45));
+        createAndSavePredictionAvailable("Chelsea FC", "Manchester United FC", now().plusDays(1).withHour(17).withMinute(0));
+        log.info("Match data (2) loaded successfully");
+    }
+
+    private void createAndSavePredictionAvailable(String homeTeamName, String awayTeamName, LocalDateTime startDate) {
+        Match match = new Match();
+        match.setHomeTeamName(homeTeamName);
+        match.setAwayTeamName(awayTeamName);
+        match.setStartDate(startDate);
+        match.setStatus(Match.Status.PREDICTION_AVAILABLE);
+        matchRepository.save(match);
     }
 }
