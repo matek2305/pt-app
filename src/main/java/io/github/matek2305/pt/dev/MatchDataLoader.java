@@ -1,6 +1,7 @@
 package io.github.matek2305.pt.dev;
 
 import com.github.matek2305.dataloader.DataLoader;
+import io.github.matek2305.pt.DevComponent;
 import io.github.matek2305.pt.domain.Match;
 import io.github.matek2305.pt.repository.MatchRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import static java.time.LocalDateTime.now;
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
 @Slf4j
+@DevComponent
 public class MatchDataLoader implements DataLoader {
 
     @Autowired
