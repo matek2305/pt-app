@@ -1,4 +1,4 @@
-package io.github.matek2305.pt;
+package io.github.matek2305.pt.dev;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
