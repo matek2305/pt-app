@@ -17,23 +17,29 @@ import static java.time.LocalDateTime.now;
 @DevComponent
 public class MatchDataLoader implements DataLoader {
 
+    Match polandVsGermany;
+    Match chelseaVsManUtd;
+
     @Autowired
     private MatchRepository matchRepository;
+
+    private int count = 0;
 
     @Override
     public void load() {
         log.info("Loading match data ...");
-        createAndSavePredictionAvailable("Poland", "Germany", now().plusDays(2).withHour(20).withMinute(45));
-        createAndSavePredictionAvailable("Chelsea FC", "Manchester United FC", now().plusDays(1).withHour(17).withMinute(0));
-        log.info("Match data (2) loaded successfully");
+        polandVsGermany = createAndSavePredictionAvailable("Poland", "Germany", now().plusDays(2).withHour(20).withMinute(45));
+        chelseaVsManUtd = createAndSavePredictionAvailable("Chelsea FC", "Manchester United FC", now().plusDays(1).withHour(17).withMinute(0));
+        log.info("Match data ({}) loaded successfully", count);
     }
 
-    private void createAndSavePredictionAvailable(String homeTeamName, String awayTeamName, LocalDateTime startDate) {
+    private Match createAndSavePredictionAvailable(String homeTeamName, String awayTeamName, LocalDateTime startDate) {
+        count++;
         Match match = new Match();
         match.setHomeTeamName(homeTeamName);
         match.setAwayTeamName(awayTeamName);
         match.setStartDate(startDate);
         match.setStatus(Match.Status.PREDICTION_AVAILABLE);
-        matchRepository.save(match);
+        return matchRepository.save(match);
     }
 }
