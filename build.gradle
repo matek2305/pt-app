@@ -26,29 +26,18 @@ repositories {
 	mavenCentral()
 }
 
-
 dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.projectlombok:lombok:1.16.6')
-	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('com.github.matek2305:spring-data-loader:0.9.0')
 	runtime('com.h2database:h2')
-	testCompile(
-			'junit:junit:4.12',
-			'org.codehaus.groovy:groovy-all:2.4.4',
-			'org.spockframework:spock-core:1.0-groovy-2.4',
-			'org.spockframework:spock-spring:1.0-groovy-2.4',
-			'org.springframework.boot:spring-boot-starter-test'
-	)
-}
-
-
-eclipse {
-    classpath {
-        containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
-        containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
-    }
+	testCompile('junit:junit:4.12')
+	testCompile('org.codehaus.groovy:groovy-all:2.4.4')
+	testCompile('org.spockframework:spock-core:1.0-groovy-2.4')
+	testCompile('org.spockframework:spock-spring:1.0-groovy-2.4')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 task wrapper(type: Wrapper) {
