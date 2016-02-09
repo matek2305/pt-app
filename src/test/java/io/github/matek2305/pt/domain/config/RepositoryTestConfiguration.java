@@ -1,5 +1,6 @@
-package io.github.matek2305.pt.repository.config;
+package io.github.matek2305.pt.domain.config;
 
+import io.github.matek2305.pt.domain.RepositoryConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

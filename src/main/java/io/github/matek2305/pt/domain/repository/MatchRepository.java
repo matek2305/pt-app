@@ -1,6 +1,6 @@
-package io.github.matek2305.pt.repository;
+package io.github.matek2305.pt.domain.repository;
 
-import io.github.matek2305.pt.domain.Match;
+import io.github.matek2305.pt.domain.entity.Match;
 import org.springframework.stereotype.Repository;
 
 /**

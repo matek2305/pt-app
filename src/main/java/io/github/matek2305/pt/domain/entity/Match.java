@@ -1,4 +1,4 @@
-package io.github.matek2305.pt.domain;
+package io.github.matek2305.pt.domain.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

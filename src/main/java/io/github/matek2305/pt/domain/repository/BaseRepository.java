@@ -1,6 +1,6 @@
-package io.github.matek2305.pt.repository;
+package io.github.matek2305.pt.domain.repository;
 
-import io.github.matek2305.pt.domain.BaseEntity;
+import io.github.matek2305.pt.domain.entity.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 

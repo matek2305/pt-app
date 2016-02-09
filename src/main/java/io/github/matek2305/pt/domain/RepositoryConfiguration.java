@@ -1,7 +1,7 @@
-package io.github.matek2305.pt.repository.config;
+package io.github.matek2305.pt.domain;
 
-import io.github.matek2305.pt.domain.BaseEntity;
-import io.github.matek2305.pt.repository.BaseRepository;
+import io.github.matek2305.pt.domain.entity.BaseEntity;
+import io.github.matek2305.pt.domain.repository.BaseRepository;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;

@@ -1,6 +1,6 @@
-package io.github.matek2305.pt.repository;
+package io.github.matek2305.pt.domain.repository;
 
-import io.github.matek2305.pt.repository.config.RepositoryTestConfiguration;
+import io.github.matek2305.pt.domain.config.RepositoryTestConfiguration;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.test.context.ContextConfiguration;

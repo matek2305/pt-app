@@ -1,6 +1,8 @@
 package io.github.matek2305.pt.repository
 
-import io.github.matek2305.pt.domain.Match
+import io.github.matek2305.pt.domain.entity.Match
+import io.github.matek2305.pt.domain.repository.MatchRepository
+import io.github.matek2305.pt.domain.repository.RepositoryITSpec
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Specification
 
