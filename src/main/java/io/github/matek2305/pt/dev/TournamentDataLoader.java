@@ -18,24 +18,24 @@ import java.util.stream.Stream;
 @LoadDataAfter(MatchDataLoader.class)
 public class TournamentDataLoader implements DataLoader {
 
-    @Autowired
-    private TournamentRepository tournamentRepository;
+    private final SaveAndCountRepository<Tournament> tournamentRepository;
+    private final MatchDataLoader matchDataLoader;
 
     @Autowired
-    private MatchDataLoader matchDataLoader;
-
-    private int count = 0;
+    public TournamentDataLoader(TournamentRepository tournamentRepository, MatchDataLoader matchDataLoader) {
+        this.tournamentRepository = new SaveAndCountRepository<>(tournamentRepository);
+        this.matchDataLoader = matchDataLoader;
+    }
 
     @Override
     public void load() {
         log.info("Loading tournament data ...");
-        createTournament("Euro 2012", "UEFA Euro 2012 Poland Ukraine", matchDataLoader.polandVsGermany);
+        createTournament("Euro 2016", "UEFA Euro 2016 France", matchDataLoader.polandVsGermany, matchDataLoader.ukraineVsPoland);
         createTournament("Premier League 2015/16", "Barclays Premier League 2015/16", matchDataLoader.chelseaVsManUtd);
-        log.info("Tournament data ({}) loaded successfully", count);
+        log.info("Tournament data ({}) loaded successfully", tournamentRepository.getCount());
     }
 
     private Tournament createTournament(String name, String desc, Match... matches) {
-        count++;
         Tournament tournament = new Tournament();
         tournament.setName(name);
         tournament.setDescription(desc);
