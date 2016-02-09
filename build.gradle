@@ -34,7 +34,7 @@ dependencies {
 	compile('com.github.matek2305:spring-data-loader:0.9.0')
 	runtime('com.h2database:h2')
 	testCompile('junit:junit:4.12')
-	testCompile('org.codehaus.groovy:groovy-all:2.4.4')
+	testCompile('org.codehaus.groovy:groovy-all:2.4.5')
 	testCompile('org.spockframework:spock-core:1.0-groovy-2.4')
 	testCompile('org.spockframework:spock-spring:1.0-groovy-2.4')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
