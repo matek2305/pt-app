@@ -1,0 +1,7 @@
+language: java
+jdk: oraclejdk8
+install: ./gradlew clean build
+
+branches:
+  only:
+    - develop
