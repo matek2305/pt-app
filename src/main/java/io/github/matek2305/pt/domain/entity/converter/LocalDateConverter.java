@@ -1,11 +1,9 @@
-package io.github.matek2305.pt.domain.converter;
+package io.github.matek2305.pt.domain.entity.converter;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**

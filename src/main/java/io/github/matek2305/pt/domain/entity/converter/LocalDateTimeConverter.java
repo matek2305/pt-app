@@ -1,4 +1,4 @@
-package io.github.matek2305.pt.domain.converter;
+package io.github.matek2305.pt.domain.entity.converter;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
