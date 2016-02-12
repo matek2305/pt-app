@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
 @Service
+@Transactional
 public class MatchService {
 
     private final MatchRepository matchRepository;

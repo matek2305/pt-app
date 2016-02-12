@@ -1,5 +1,6 @@
 package io.github.matek2305.pt.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -30,6 +31,7 @@ public class MatchPrediction extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "match_id")
     private Match match;
