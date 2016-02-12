@@ -30,8 +30,8 @@ public class MatchPredictionDataLoader implements DataLoader {
     @Override
     public void load() {
         log.info("Loading prediction data ...");
-        createAndSavePredicitonOpen(0, 0, matchDataLoader.polandVsGermany);
-        createAndSavePredicitonOpen(1, 3, matchDataLoader.ukraineVsPoland);
+        createAndSavePredicitonOpen(0, 0, matchDataLoader.getDevEntity(MatchDataLoader.MatchDevEntity.POLAND_VS_GERMANY));
+        createAndSavePredicitonOpen(1, 3, matchDataLoader.getDevEntity(MatchDataLoader.MatchDevEntity.UKRAINE_VS_POLAND));
         log.info("Prediction data ({}) loaded successfully", matchPredictionRepository.getCount());
     }
 

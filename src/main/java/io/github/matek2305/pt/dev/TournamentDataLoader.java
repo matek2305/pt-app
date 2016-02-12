@@ -30,16 +30,16 @@ public class TournamentDataLoader implements DataLoader {
     @Override
     public void load() {
         log.info("Loading tournament data ...");
-        createTournament("Euro 2016", "UEFA Euro 2016 France", matchDataLoader.polandVsGermany, matchDataLoader.ukraineVsPoland);
-        createTournament("Premier League 2015/16", "Barclays Premier League 2015/16", matchDataLoader.chelseaVsManUtd);
+        createTournament("Euro 2016", "UEFA Euro 2016 France", MatchDataLoader.MatchDevEntity.POLAND_VS_GERMANY, MatchDataLoader.MatchDevEntity.UKRAINE_VS_POLAND);
+        createTournament("Premier League 2015/16", "Barclays Premier League 2015/16", MatchDataLoader.MatchDevEntity.CHELSEA_VS_MANUTD);
         log.info("Tournament data ({}) loaded successfully", tournamentRepository.getCount());
     }
 
-    private Tournament createTournament(String name, String desc, Match... matches) {
+    private Tournament createTournament(String name, String desc, MatchDataLoader.MatchDevEntity... matches) {
         Tournament tournament = new Tournament();
         tournament.setName(name);
         tournament.setDescription(desc);
-        Stream.of(matches).forEach(tournament::addMatch);
+        Stream.of(matches).forEach(m -> tournament.addMatch(matchDataLoader.getDevEntity(m)));
         return tournamentRepository.save(tournament);
     }
 }

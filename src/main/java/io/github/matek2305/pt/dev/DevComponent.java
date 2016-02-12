@@ -13,5 +13,5 @@ import java.lang.annotation.*;
 @Inherited
 @Component
 @Profile("dev")
-public @interface DevComponent {
+@interface DevComponent {
 }
