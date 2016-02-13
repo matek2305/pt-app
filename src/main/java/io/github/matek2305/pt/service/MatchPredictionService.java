@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>
@@ -24,5 +25,9 @@ public class MatchPredictionService {
 
     public List<MatchPrediction> getPredictionListForMatch(final int matchId) {
         return matchPredictionRepository.findByMatchId(matchId);
+    }
+
+    public Optional<MatchPrediction> getMatchPrediction(final int predictionId) {
+        return matchPredictionRepository.findOptional(predictionId);
     }
 }

@@ -8,6 +8,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Map;
+import java.util.Optional;
+
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
@@ -24,5 +27,9 @@ public class MatchService {
 
     public Page<Match> getMatchPage(final int page, final int size) {
         return matchRepository.findAll(new PageRequest(page, size));
+    }
+
+    public Optional<Match> getMatch(final int matchId) {
+        return matchRepository.findOptional(matchId);
     }
 }
