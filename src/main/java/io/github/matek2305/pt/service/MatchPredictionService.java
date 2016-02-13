@@ -3,8 +3,6 @@ package io.github.matek2305.pt.service;
 import io.github.matek2305.pt.domain.entity.MatchPrediction;
 import io.github.matek2305.pt.domain.repository.MatchPredictionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,8 +10,7 @@ import java.util.Optional;
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
-@Service
-@Transactional
+@TransactionalService
 public class MatchPredictionService {
 
     private final MatchPredictionRepository matchPredictionRepository;

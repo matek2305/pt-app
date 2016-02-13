@@ -1,20 +1,19 @@
 package io.github.matek2305.pt.service;
 
+import io.github.matek2305.pt.api.resource.MatchResource;
 import io.github.matek2305.pt.domain.entity.Match;
 import io.github.matek2305.pt.domain.repository.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
-@Service
-@Transactional
+@TransactionalService
 public class MatchService {
 
     private final MatchRepository matchRepository;
@@ -30,5 +29,9 @@ public class MatchService {
 
     public Optional<Match> getMatch(final int matchId) {
         return matchRepository.findOptional(matchId);
+    }
+
+    public List<Match> getMatchListFromTournament(final int tournamentId) {
+        return matchRepository.findByTournamentId(tournamentId);
     }
 }

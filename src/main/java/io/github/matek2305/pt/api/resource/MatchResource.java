@@ -1,6 +1,7 @@
 package io.github.matek2305.pt.api.resource;
 
 import io.github.matek2305.pt.api.MatchesController;
+import io.github.matek2305.pt.api.TournamentsController;
 import io.github.matek2305.pt.domain.entity.Match;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,6 +38,7 @@ public class MatchResource extends ResourceSupport {
 
         matchResource.add(linkTo(methodOn(MatchesController.class).getMatch(match.getId())).withSelfRel());
         matchResource.add(linkTo(methodOn(MatchesController.class).getPredictionListForMatch(match.getId())).withRel("predictions"));
+        matchResource.add(linkTo(methodOn(TournamentsController.class).getTournament(match.getTournament().getId())).withRel("tournament"));
 
         return matchResource;
     }

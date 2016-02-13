@@ -3,10 +3,7 @@ package io.github.matek2305.pt.domain.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
@@ -35,6 +32,10 @@ public class Match extends BaseEntity {
     @Column
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    @ManyToOne
+    @JoinColumn(name = "tournament_id")
+    private Tournament tournament;
 
     public enum Status {
         PREDICTION_AVAILABLE,

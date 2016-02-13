@@ -9,14 +9,13 @@ import io.github.matek2305.pt.service.MatchPredictionService;
 import io.github.matek2305.pt.service.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * Controller for "/matches" resource.
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
 @RestController
@@ -36,29 +35,27 @@ public class MatchesController {
 
 
     @RequestMapping(value = "/{matchId}", method = RequestMethod.GET)
-    public HttpEntity<MatchResource> getMatch(@PathVariable("matchId") final int matchId) {
-        MatchResource matchResource = matchService.getMatch(matchId)
+    public MatchResource getMatch(@PathVariable("matchId") final int matchId) {
+        return matchService.getMatch(matchId)
                 .map(MatchResource::fromEntity)
                 .orElseThrow(() -> new ResourceNotFoundException("match resource nt found for id=" + matchId));
-        return ResponseEntity.ok(matchResource);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public HttpEntity<ListResponse<MatchResource>> getMatchList(@RequestParam("page") final int page, @RequestParam("size") final int size) {
+    public ListResponse<MatchResource> getMatchList(@RequestParam("page") final int page, @RequestParam("size") final int size) {
         Page<Match> matchPage = matchService.getMatchPage(page, size);
         List<MatchResource> matchResourceList = matchPage.getContent()
                 .stream()
                 .map(MatchResource::fromEntity)
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(new ListResponse<>(matchResourceList, matchPage.getTotalElements()));
+        return new ListResponse<>(matchResourceList, matchPage.getTotalElements());
     }
 
     @RequestMapping(value = "/{matchId}/predictions", method = RequestMethod.GET)
-    public HttpEntity<List<PredictionResource>> getPredictionListForMatch(@PathVariable("matchId") final int matchId) {
-        List<PredictionResource> predictionResourceList = matchPredictionService.getPredictionListForMatch(matchId)
+    public List<PredictionResource> getPredictionListForMatch(@PathVariable("matchId") final int matchId) {
+        return matchPredictionService.getPredictionListForMatch(matchId)
                 .stream()
                 .map(PredictionResource::fromEntity)
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(predictionResourceList);
     }
 }
