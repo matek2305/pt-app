@@ -1,6 +1,8 @@
 package io.github.matek2305.pt.api.response;
 
 import lombok.Data;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 

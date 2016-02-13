@@ -2,7 +2,6 @@ package io.github.matek2305.pt.dev;
 
 import com.github.matek2305.dataloader.DataLoader;
 import com.github.matek2305.dataloader.annotations.LoadDataAfter;
-import io.github.matek2305.pt.domain.entity.Match;
 import io.github.matek2305.pt.domain.entity.Tournament;
 import io.github.matek2305.pt.domain.repository.TournamentRepository;
 import lombok.extern.slf4j.Slf4j;
