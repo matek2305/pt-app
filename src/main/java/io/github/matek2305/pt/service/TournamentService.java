@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
+import static pl.wavesoftware.eid.utils.EidPreconditions.checkNotNull;
+
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
@@ -21,5 +23,11 @@ public class TournamentService {
 
     public Optional<Tournament> getTournament(final int id) {
         return tournamentRepository.findOptional(id);
+    }
+
+    public Tournament createTournament(String name, String description) {
+        checkNotNull(name, "20160213:213725");
+        Tournament tournament = Tournament.create(name, description);
+        return tournamentRepository.save(tournament);
     }
 }

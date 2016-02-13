@@ -19,4 +19,11 @@ public class Tournament extends BaseEntity {
 
     @Column
     private String description;
+
+    public static Tournament create(String name, String description) {
+        Tournament tournament = new Tournament();
+        tournament.setName(name);
+        tournament.setDescription(description);
+        return tournament;
+    }
 }
