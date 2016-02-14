@@ -37,6 +37,7 @@ dependencies {
 	compile('com.github.matek2305:spring-data-loader:0.9.0')
 	compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.7.1')
 	compile('pl.wavesoftware:eid-exceptions:1.1.0')
+	compile('org.apache.commons:commons-lang3:3.4')
 	runtime('com.h2database:h2')
 	testCompile('junit:junit:4.12')
 	testCompile('org.codehaus.groovy:groovy-all:2.4.5')
