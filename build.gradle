@@ -4,13 +4,9 @@ buildscript {
 	}
 	repositories {
 		mavenCentral()
-        maven {
-            url 'https://plugins.gradle.org/m2/'
-        }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath('org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.6.3')
 	}
 }
 
@@ -19,7 +15,6 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'jacoco'
-apply plugin: 'com.github.kt3k.coveralls'
 
 jar {
 	baseName = 'pt-app'
@@ -55,6 +50,8 @@ jacocoTestReport {
 		html.enabled = true
 	}
 }
+
+check.dependsOn jacocoTestReport
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.9'
