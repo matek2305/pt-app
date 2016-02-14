@@ -2,7 +2,7 @@ package io.github.matek2305.pt.service
 
 import io.github.matek2305.pt.domain.entity.Tournament
 import io.github.matek2305.pt.domain.repository.TournamentRepository
-import io.github.matek2305.pt.service.exception.ValidationFailedException
+import io.github.matek2305.pt.exception.ValidationFailedException
 import spock.lang.Specification
 
 /**

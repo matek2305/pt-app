@@ -1,4 +1,4 @@
-package io.github.matek2305.pt.service.exception;
+package io.github.matek2305.pt.exception;
 
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>

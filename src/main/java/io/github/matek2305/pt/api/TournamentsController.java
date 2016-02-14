@@ -1,6 +1,6 @@
 package io.github.matek2305.pt.api;
 
-import io.github.matek2305.pt.api.exception.ResourceNotFoundException;
+import io.github.matek2305.pt.exception.ResourceNotFoundException;
 import io.github.matek2305.pt.api.request.CreateTournamentRequest;
 import io.github.matek2305.pt.api.resource.MatchResource;
 import io.github.matek2305.pt.api.resource.TournamentResource;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/tournaments")
-public class TournamentsController {
+public class TournamentsController extends BaseExceptionHandler {
 
     private final TournamentService tournamentService;
     private final MatchService matchService;
