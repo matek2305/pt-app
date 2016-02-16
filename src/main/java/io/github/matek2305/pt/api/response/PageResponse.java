@@ -23,11 +23,11 @@ public class PageResponse<T> extends ResourceSupport {
     private final List<T> content;
     private final long totalElements;
 
-    public void addPrevPageLink(Object invocationValue) {
-        add(linkTo(invocationValue).withRel(PREV_PAGE_LINK));
+    public void addPrevPageLink(PageResponse<T> getPageValue) {
+        add(linkTo(getPageValue).withRel(PREV_PAGE_LINK));
     }
 
-    public void addNextPageLink(Object invocationValue) {
-        add(linkTo(invocationValue).withRel(NEXT_PAGE_LINK));
+    public void addNextPageLink(PageResponse<T> getPageValue) {
+        add(linkTo(getPageValue).withRel(NEXT_PAGE_LINK));
     }
 }
