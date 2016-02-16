@@ -1,9 +1,10 @@
 package io.github.matek2305.pt.api;
 
+import io.github.matek2305.pt.domain.entity.MatchPrediction;
 import io.github.matek2305.pt.exception.ResourceNotFoundException;
 import io.github.matek2305.pt.api.resource.MatchResource;
 import io.github.matek2305.pt.api.resource.PredictionResource;
-import io.github.matek2305.pt.api.response.ListResponse;
+import io.github.matek2305.pt.api.response.PageResponse;
 import io.github.matek2305.pt.domain.entity.Match;
 import io.github.matek2305.pt.service.MatchPredictionService;
 import io.github.matek2305.pt.service.MatchService;
@@ -33,7 +34,6 @@ public class MatchesController {
         this.matchPredictionService = matchPredictionService;
     }
 
-
     @RequestMapping(value = "/{matchId}", method = RequestMethod.GET)
     public MatchResource getMatch(@PathVariable("matchId") final int matchId) {
         return matchService.getMatch(matchId)
@@ -41,21 +41,18 @@ public class MatchesController {
                 .orElseThrow(() -> new ResourceNotFoundException("match resource nt found for id=" + matchId));
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ListResponse<MatchResource> getMatchList(@RequestParam("page") final int page, @RequestParam("size") final int size) {
-        Page<Match> matchPage = matchService.getMatchPage(page, size);
-        List<MatchResource> matchResourceList = matchPage.getContent()
-                .stream()
-                .map(MatchResource::fromEntity)
-                .collect(Collectors.toList());
-        return new ListResponse<>(matchResourceList, matchPage.getTotalElements());
-    }
-
     @RequestMapping(value = "/{matchId}/predictions", method = RequestMethod.GET)
-    public List<PredictionResource> getPredictionListForMatch(@PathVariable("matchId") final int matchId) {
-        return matchPredictionService.getPredictionListForMatch(matchId)
+    public PageResponse<PredictionResource> getPredictionListForMatch(
+            @PathVariable("matchId") final int matchId,
+            @RequestParam("page") final int page,
+            @RequestParam("size") final int size) {
+
+        Page<MatchPrediction> matchPredictionPage = matchPredictionService.getPredictionPageForMatch(matchId, page, size);
+        List<PredictionResource> predictionResourceList = matchPredictionPage.getContent()
                 .stream()
                 .map(PredictionResource::fromEntity)
                 .collect(Collectors.toList());
+
+        return new PageResponse<>(predictionResourceList, matchPredictionPage.getTotalElements());
     }
 }

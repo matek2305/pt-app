@@ -10,7 +10,7 @@ import java.util.List;
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
 @Data
-public class ListResponse<T> {
+public class PageResponse<T> {
 
     private final List<T> content;
     private final long totalElements;

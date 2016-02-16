@@ -37,7 +37,7 @@ public class MatchResource extends ResourceSupport {
         );
 
         matchResource.add(linkTo(methodOn(MatchesController.class).getMatch(match.getId())).withSelfRel());
-        matchResource.add(linkTo(methodOn(MatchesController.class).getPredictionListForMatch(match.getId())).withRel("predictions"));
+        matchResource.add(linkTo(methodOn(MatchesController.class).getPredictionListForMatch(match.getId(), 0, 5)).withRel("predictions"));
         matchResource.add(linkTo(methodOn(TournamentsController.class).getTournament(match.getTournament().getId())).withRel("tournament"));
 
         return matchResource;

@@ -1,6 +1,5 @@
 package io.github.matek2305.pt.service;
 
-import io.github.matek2305.pt.api.resource.MatchResource;
 import io.github.matek2305.pt.domain.entity.Match;
 import io.github.matek2305.pt.domain.repository.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +22,11 @@ public class MatchService {
         this.matchRepository = matchRepository;
     }
 
-    public Page<Match> getMatchPage(final int page, final int size) {
-        return matchRepository.findAll(new PageRequest(page, size));
-    }
-
     public Optional<Match> getMatch(final int matchId) {
         return matchRepository.findOptional(matchId);
     }
 
-    public List<Match> getMatchListFromTournament(final int tournamentId) {
-        return matchRepository.findByTournamentId(tournamentId);
+    public Page<Match> getMatchPageFromTournament(final int tournamentId, final int page, final int size) {
+        return matchRepository.findByTournamentId(tournamentId, new PageRequest(page, size));
     }
 }

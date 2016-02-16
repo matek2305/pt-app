@@ -1,6 +1,8 @@
 package io.github.matek2305.pt.domain.repository;
 
 import io.github.matek2305.pt.domain.entity.Match;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,5 +13,5 @@ import java.util.List;
 @Repository
 public interface MatchRepository extends BaseRepository<Match> {
 
-    List<Match> findByTournamentId(int tournamentId);
+    Page<Match> findByTournamentId(int tournamentId, Pageable pageable);
 }

@@ -23,7 +23,7 @@ public class TournamentResource extends ResourceSupport {
         TournamentResource tournamentResource = new TournamentResource(tournament.getName(), tournament.getDescription());
 
         tournamentResource.add(linkTo(methodOn(TournamentsController.class).getTournament(tournament.getId())).withSelfRel());
-        tournamentResource.add(linkTo(methodOn(TournamentsController.class).getMatchListFromTournament(tournament.getId())).withRel("matches"));
+        tournamentResource.add(linkTo(methodOn(TournamentsController.class).getMatchListFromTournament(tournament.getId(), 0, 5)).withRel("matches"));
 
         return tournamentResource;
     }
