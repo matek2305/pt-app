@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 /**
  * Controller for "/matches" resource.
  * @author Mateusz Urbański <matek2305@gmail.com>
@@ -53,6 +56,14 @@ public class MatchesController {
                 .map(PredictionResource::fromEntity)
                 .collect(Collectors.toList());
 
-        return new PageResponse<>(predictionResourceList, matchPredictionPage.getTotalElements());
+        PageResponse<PredictionResource> response = new PageResponse<>(predictionResourceList, matchPredictionPage.getTotalElements());
+        if (matchPredictionPage.hasPrevious()) {
+            response.addPrevPageLink(methodOn(getClass()).getPredictionListForMatch(matchId, page - 1, size));
+        }
+        if (matchPredictionPage.hasNext()) {
+            response.addNextPageLink(methodOn(getClass()).getPredictionListForMatch(matchId, page + 1, size));
+        }
+
+        return response;
     }
 }

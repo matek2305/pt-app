@@ -19,6 +19,9 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 /**
  * Controller for "/tournaments" resource.
  * @author Mateusz Urbański <matek2305@gmail.com>
@@ -62,6 +65,14 @@ public class TournamentsController extends BaseExceptionHandler {
                 .map(MatchResource::fromEntity)
                 .collect(Collectors.toList());
 
-        return new PageResponse<>(matchResourceList, matchPage.getTotalElements());
+        PageResponse<MatchResource> response = new PageResponse<>(matchResourceList, matchPage.getTotalElements());
+        if (matchPage.hasPrevious()) {
+            response.addPrevPageLink(methodOn(getClass()).getMatchListFromTournament(tournamentId, page - 1, size));
+        }
+        if (matchPage.hasNext()) {
+            response.addNextPageLink(methodOn(getClass()).getMatchListFromTournament(tournamentId, page + 1, size));
+        }
+
+        return response;
     }
 }
