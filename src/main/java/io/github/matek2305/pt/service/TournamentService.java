@@ -9,7 +9,6 @@ import java.util.Optional;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static pl.wavesoftware.eid.utils.EidPreconditions.checkArgument;
-import static pl.wavesoftware.eid.utils.EidPreconditions.checkNotNull;
 
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>

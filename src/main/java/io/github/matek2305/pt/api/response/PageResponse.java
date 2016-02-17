@@ -1,15 +1,11 @@
 package io.github.matek2305.pt.api.response;
 
 import lombok.Data;
-import org.springframework.data.domain.Page;
 import org.springframework.hateoas.ResourceSupport;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>

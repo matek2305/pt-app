@@ -1,7 +1,7 @@
 package io.github.matek2305.pt.api;
 
-import io.github.matek2305.pt.exception.ResourceNotFoundException;
 import io.github.matek2305.pt.api.resource.PredictionResource;
+import io.github.matek2305.pt.exception.ResourceNotFoundException;
 import io.github.matek2305.pt.service.MatchPredictionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

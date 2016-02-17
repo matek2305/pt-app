@@ -1,10 +1,9 @@
 package io.github.matek2305.pt.api
 
 import info.solidsoft.mockito.java8.api.WithBDDMockito
-import io.github.matek2305.pt.api.resource.TournamentResource
 import io.github.matek2305.pt.domain.entity.Tournament
-import io.github.matek2305.pt.service.TournamentService
 import io.github.matek2305.pt.exception.ValidationFailedException
+import io.github.matek2305.pt.service.TournamentService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.SpringApplicationContextLoader
 import org.springframework.boot.test.WebIntegrationTest

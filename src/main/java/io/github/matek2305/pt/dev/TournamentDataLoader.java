@@ -17,7 +17,7 @@ public class TournamentDataLoader implements KeyDataLoader<Tournament, Tournamen
 
     enum TournamentDevEntity {
         EURO_2016,
-        PL_2015_16;
+        PL_2015_16
     }
 
     private final Map<TournamentDevEntity, Tournament> entityMap = new EnumMap<>(TournamentDevEntity.class);
