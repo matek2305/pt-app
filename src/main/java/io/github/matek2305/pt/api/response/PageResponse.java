@@ -1,6 +1,7 @@
 package io.github.matek2305.pt.api.response;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.hateoas.ResourceSupport;
 
 import java.util.List;
@@ -11,19 +12,17 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class PageResponse<T> extends ResourceSupport {
-
-    private static final String PREV_PAGE_LINK = "prevPage";
-    private static final String NEXT_PAGE_LINK = "nextPage";
 
     private final List<T> content;
     private final long totalElements;
 
     public void addPrevPageLink(PageResponse<T> getPageValue) {
-        add(linkTo(getPageValue).withRel(PREV_PAGE_LINK));
+        add(linkTo(getPageValue).withRel("prevPage"));
     }
 
     public void addNextPageLink(PageResponse<T> getPageValue) {
-        add(linkTo(getPageValue).withRel(NEXT_PAGE_LINK));
+        add(linkTo(getPageValue).withRel("nextPage"));
     }
 }

@@ -1,14 +1,19 @@
 package io.github.matek2305.pt.service;
 
+import io.github.matek2305.pt.domain.entity.Match;
 import io.github.matek2305.pt.domain.entity.Tournament;
+import io.github.matek2305.pt.domain.repository.MatchRepository;
 import io.github.matek2305.pt.domain.repository.TournamentRepository;
+import io.github.matek2305.pt.exception.ResourceNotFoundException;
 import io.github.matek2305.pt.exception.ValidationFailedException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static pl.wavesoftware.eid.utils.EidPreconditions.checkArgument;
+import static pl.wavesoftware.eid.utils.EidPreconditions.checkNotNull;
 
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>
@@ -17,10 +22,12 @@ import static pl.wavesoftware.eid.utils.EidPreconditions.checkArgument;
 public class TournamentService {
 
     private final TournamentRepository tournamentRepository;
+    private final MatchRepository matchRepository;
 
     @Autowired
-    public TournamentService(TournamentRepository tournamentRepository) {
+    public TournamentService(TournamentRepository tournamentRepository, MatchRepository matchRepository) {
         this.tournamentRepository = tournamentRepository;
+        this.matchRepository = matchRepository;
     }
 
     public Optional<Tournament> getTournament(final int id) {
@@ -36,5 +43,23 @@ public class TournamentService {
 
         Tournament tournament = Tournament.create(name, description);
         return tournamentRepository.save(tournament);
+    }
+
+    public Match addTournamentMatch(final int tournamentId, String homeTeamName, String awayTeamName, LocalDateTime startDate) {
+        checkArgument(isNotBlank(homeTeamName), "20160217:212204");
+        checkArgument(isNotBlank(awayTeamName), "20160217:212208");
+        checkNotNull(startDate, "20160217:212210");
+
+        Tournament tournament = tournamentRepository.findOptional(tournamentId)
+                .orElseThrow(() -> new ResourceNotFoundException("tournament resource not found for id=" + tournamentId));
+
+        if (startDate.isBefore(LocalDateTime.now())) {
+            throw new ValidationFailedException("Nieprawidłowa dane meczu, data rozpoczęcia nie może być przeszła");
+        } else if (startDate.plusMinutes(90).isBefore(LocalDateTime.now())) {
+            throw new ValidationFailedException("Nieprawidłowe dane meczu, data rozpoczęcia nie może być poźniejsza niż " + LocalDateTime.now().minusMinutes(90));
+        }
+
+        Match match = Match.createPredictionAvailable(homeTeamName, awayTeamName, startDate, tournament);
+        return matchRepository.save(match);
     }
 }
