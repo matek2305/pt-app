@@ -1,5 +1,6 @@
 package io.github.matek2305.pt.api;
 
+import io.github.matek2305.pt.api.request.AddTournamentMatchRequest;
 import io.github.matek2305.pt.api.request.CreateTournamentRequest;
 import io.github.matek2305.pt.api.resource.MatchResource;
 import io.github.matek2305.pt.api.resource.TournamentResource;
@@ -79,5 +80,14 @@ public class TournamentsController extends BaseExceptionHandler {
         }
 
         return response;
+    }
+
+    @RequestMapping(value = "/{id}/matches", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public MatchResource addTournamentMatch(
+            @PathVariable("id") final int tournamentId,
+            @NotNull @Valid @RequestBody AddTournamentMatchRequest request) {
+        Match match = tournamentService.addTournamentMatch(tournamentId, request.getHomeTeamName(), request.getAwayTeamName(), request.getStartDate());
+        return MatchResource.fromEntity(match);
     }
 }

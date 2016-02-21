@@ -42,6 +42,16 @@ public class Match extends BaseEntity {
     @JoinColumn(name = "tournament_id")
     private Tournament tournament;
 
+    public static Match createPredictionAvailable(String homeTeamName, String awayTeamName, LocalDateTime startDate, Tournament tournament) {
+        Match match = new Match();
+        match.setHomeTeamName(homeTeamName);
+        match.setAwayTeamName(awayTeamName);
+        match.setStartDate(startDate);
+        match.setTournament(tournament);
+        match.setStatus(Status.PREDICTION_AVAILABLE);
+        return match;
+    }
+
     public enum Status {
         PREDICTION_AVAILABLE,
         PREDICTION_CLOSED,
