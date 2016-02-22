@@ -1,6 +1,7 @@
 package io.github.matek2305.pt.api
 
 import info.solidsoft.mockito.java8.api.WithBDDMockito
+import io.github.matek2305.pt.api.config.ApiConfiguration
 import io.github.matek2305.pt.domain.entity.Tournament
 import io.github.matek2305.pt.exception.ValidationFailedException
 import io.github.matek2305.pt.service.TournamentService
