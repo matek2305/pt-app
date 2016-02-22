@@ -1,5 +1,6 @@
 package io.github.matek2305.pt.service
 
+import io.github.matek2305.pt.auth.AuthenticationFacade
 import io.github.matek2305.pt.domain.entity.Match
 import io.github.matek2305.pt.domain.entity.Tournament
 import io.github.matek2305.pt.domain.repository.MatchRepository
@@ -14,14 +15,16 @@ import java.time.LocalDateTime
  */
 class TournamentServiceSpec extends Specification {
 
+    private AuthenticationFacade authenticationFacadeMock
     private TournamentRepository tournamentRepositoryMock
     private MatchRepository matchRepositoryMock
     private TournamentService tournamentService
 
     void setup() {
+        authenticationFacadeMock = Mock(AuthenticationFacade)
         tournamentRepositoryMock = Mock(TournamentRepository)
         matchRepositoryMock = Mock(MatchRepository)
-        tournamentService = new TournamentService(authenticationFacade, tournamentRepositoryMock, matchRepositoryMock)
+        tournamentService = new TournamentService(authenticationFacadeMock, tournamentRepositoryMock, matchRepositoryMock)
     }
 
     def "should throw ValidationFailedException when name is already taken"() {
