@@ -21,7 +21,7 @@ class TournamentServiceSpec extends Specification {
     void setup() {
         tournamentRepositoryMock = Mock(TournamentRepository)
         matchRepositoryMock = Mock(MatchRepository)
-        tournamentService = new TournamentService(tournamentRepositoryMock, matchRepositoryMock)
+        tournamentService = new TournamentService(authenticationFacade, tournamentRepositoryMock, matchRepositoryMock)
     }
 
     def "should throw ValidationFailedException when name is already taken"() {

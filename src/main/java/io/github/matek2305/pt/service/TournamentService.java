@@ -1,5 +1,6 @@
 package io.github.matek2305.pt.service;
 
+import io.github.matek2305.pt.auth.AuthenticationFacade;
 import io.github.matek2305.pt.domain.entity.Match;
 import io.github.matek2305.pt.domain.entity.Tournament;
 import io.github.matek2305.pt.domain.repository.MatchRepository;
@@ -21,11 +22,17 @@ import static pl.wavesoftware.eid.utils.EidPreconditions.checkNotNull;
 @TransactionalService
 public class TournamentService {
 
+    private final AuthenticationFacade authenticationFacade;
+
     private final TournamentRepository tournamentRepository;
     private final MatchRepository matchRepository;
 
     @Autowired
-    public TournamentService(TournamentRepository tournamentRepository, MatchRepository matchRepository) {
+    public TournamentService(
+            final AuthenticationFacade authenticationFacade,
+            final TournamentRepository tournamentRepository,
+            final MatchRepository matchRepository) {
+        this.authenticationFacade = authenticationFacade;
         this.tournamentRepository = tournamentRepository;
         this.matchRepository = matchRepository;
     }
@@ -41,7 +48,7 @@ public class TournamentService {
             throw new ValidationFailedException("Nazwa " + name + " jest zajęta, wybierz inną.");
         }
 
-        Tournament tournament = Tournament.create(name, description);
+        Tournament tournament = Tournament.create(name, description, authenticationFacade.getLoggedUsername());
         return tournamentRepository.save(tournament);
     }
 
