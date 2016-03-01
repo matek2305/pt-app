@@ -5,7 +5,7 @@ package io.github.matek2305.pt.exception;
  */
 public class ResourceNotFoundException extends RuntimeException {
 
-    public ResourceNotFoundException(String message) {
-        super(message);
+    public ResourceNotFoundException(String message, Object... args) {
+        super(String.format(message, args));
     }
 }

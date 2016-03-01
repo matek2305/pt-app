@@ -44,7 +44,7 @@ public class MatchDataLoader implements KeyDataLoader<Match, MatchDataLoader.Mat
         log.info("Loading match data ...");
         createAndSavePredictionAvailable(MatchDevEntity.POLAND_VS_GERMANY, "Poland", "Germany", now().plusDays(2).withHour(20).withMinute(45), EURO_2016);
         createAndSavePredictionAvailable(MatchDevEntity.UKRAINE_VS_POLAND, "Ukraine", "Poland", now().plusDays(5).withHour(20).withMinute(45), EURO_2016);
-        createAndSavePredictionAvailable(MatchDevEntity.CHELSEA_VS_MANUTD, "Chelsea FC", "Manchester United FC", now().plusDays(1).withHour(17).withMinute(0), PL_2015_16);
+        createAndSavePredictionClosed(MatchDevEntity.CHELSEA_VS_MANUTD, "Chelsea FC", "Manchester United FC", now().plusMinutes(30), PL_2015_16);
         log.info("Match data ({}) loaded successfully", matchRepository.getCount());
     }
 
@@ -59,6 +59,16 @@ public class MatchDataLoader implements KeyDataLoader<Match, MatchDataLoader.Mat
         match.setAwayTeamName(awayTeamName);
         match.setStartDate(startDate);
         match.setStatus(Match.Status.PREDICTION_AVAILABLE);
+        match.setTournament(tournamentDataLoader.getDevEntity(tournamentKey));
+        entityMap.put(key, matchRepository.save(match));
+    }
+
+    private void createAndSavePredictionClosed(MatchDevEntity key, String homeTeamName, String awayTeamName, LocalDateTime startDate, TournamentDevEntity tournamentKey) {
+        Match match = new Match();
+        match.setHomeTeamName(homeTeamName);
+        match.setAwayTeamName(awayTeamName);
+        match.setStartDate(startDate);
+        match.setStatus(Match.Status.PREDICTION_CLOSED);
         match.setTournament(tournamentDataLoader.getDevEntity(tournamentKey));
         entityMap.put(key, matchRepository.save(match));
     }
