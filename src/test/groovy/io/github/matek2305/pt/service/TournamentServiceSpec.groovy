@@ -90,6 +90,18 @@ class TournamentServiceSpec extends Specification {
             thrown(ValidationFailedException)
     }
 
+    def "should throw ValidationFailedException when trying to add match as no admin"() {
+        given:
+            def tournamentId = 1
+        and:
+            tournamentRepositoryMock.findOptional(tournamentId) >> Optional.of(new Tournament(admin: 'admin'))
+            authenticationFacadeMock.getLoggedUsername() >> 'notadmin'
+        when:
+            tournamentService.addTournamentMatch(tournamentId, 'homeTeam', 'awayTeam', LocalDateTime.now().plusMinutes(120))
+        then:
+            thrown(ValidationFailedException)
+    }
+
     def "should save match entity"() {
         given:
             def tournamentId = 1

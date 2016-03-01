@@ -36,15 +36,16 @@ public class TournamentDataLoader implements KeyDataLoader<Tournament, Tournamen
     @Override
     public void load() {
         log.info("Loading tournament data ...");
-        createTournament(TournamentDevEntity.EURO_2016, "Euro 2016", "UEFA Euro 2016 France");
-        createTournament(TournamentDevEntity.PL_2015_16, "Premier League 2015/16", "Barclays Premier League 2015/16");
+        createTournament(TournamentDevEntity.EURO_2016, "Euro 2016", "UEFA Euro 2016 France", DevUsernames.JKOWALSKI);
+        createTournament(TournamentDevEntity.PL_2015_16, "Premier League 2015/16", "Barclays Premier League 2015/16", DevUsernames.ZMARTYNIUK);
         log.info("Tournament data ({}) loaded successfully", tournamentRepository.getCount());
     }
 
-    private void createTournament(TournamentDevEntity key, String name, String desc) {
+    private void createTournament(TournamentDevEntity key, String name, String desc, String admin) {
         Tournament tournament = new Tournament();
         tournament.setName(name);
         tournament.setDescription(desc);
+        tournament.setAdmin(admin);
         entityMap.put(key, tournamentRepository.save(tournament));
     }
 }

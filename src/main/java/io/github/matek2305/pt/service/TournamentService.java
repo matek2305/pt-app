@@ -7,6 +7,7 @@ import io.github.matek2305.pt.domain.repository.MatchRepository;
 import io.github.matek2305.pt.domain.repository.TournamentRepository;
 import io.github.matek2305.pt.exception.ResourceNotFoundException;
 import io.github.matek2305.pt.exception.ValidationFailedException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
@@ -60,7 +61,9 @@ public class TournamentService {
         Tournament tournament = tournamentRepository.findOptional(tournamentId)
                 .orElseThrow(() -> new ResourceNotFoundException("tournament resource not found for id=" + tournamentId));
 
-        if (startDate.isBefore(LocalDateTime.now())) {
+        if (!StringUtils.equals(authenticationFacade.getLoggedUsername(), tournament.getAdmin())) {
+            throw new ValidationFailedException("Nie masz uprawnień do dodawania meczów do tego turnieju");
+        } else if (startDate.isBefore(LocalDateTime.now())) {
             throw new ValidationFailedException("Nieprawidłowe dane meczu, data rozpoczęcia nie może być wcześniejsza niż aktualna");
         } else if (startDate.isBefore(LocalDateTime.now().plusMinutes(90))) {
             throw new ValidationFailedException("Nieprawidłowe dane meczu, data rozpoczęcia nie może być poźniejsza niż " + LocalDateTime.now().minusMinutes(90));
