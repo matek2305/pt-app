@@ -16,6 +16,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Component
-@Profile("dev")
-@interface DevComponent {
+@Profile({"dev", "demo"})
+@interface DataLoader {
 }

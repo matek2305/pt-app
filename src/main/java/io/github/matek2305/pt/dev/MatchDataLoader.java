@@ -19,7 +19,7 @@ import static java.time.LocalDateTime.now;
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
 @Slf4j
-@DevComponent
+@DataLoader
 @LoadDataAfter(TournamentDataLoader.class)
 public class MatchDataLoader implements KeyDataLoader<Match, MatchDataLoader.MatchDevEntity> {
 

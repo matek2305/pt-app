@@ -1,6 +1,5 @@
 package io.github.matek2305.pt.dev;
 
-import com.github.matek2305.dataloader.DataLoader;
 import com.github.matek2305.dataloader.annotations.LoadDataAfter;
 import io.github.matek2305.pt.domain.entity.Match;
 import io.github.matek2305.pt.domain.entity.MatchPrediction;
@@ -12,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
 @Slf4j
-@DevComponent
+@DataLoader
 @LoadDataAfter(MatchDataLoader.class)
-public class MatchPredictionDataLoader implements DataLoader {
+public class MatchPredictionDataLoader implements com.github.matek2305.dataloader.DataLoader {
 
     private final SaveAndCountRepository<MatchPrediction> matchPredictionRepository;
     private final MatchDataLoader matchDataLoader;

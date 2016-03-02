@@ -12,7 +12,7 @@ import java.util.Map;
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
 @Slf4j
-@DevComponent
+@DataLoader
 public class TournamentDataLoader implements KeyDataLoader<Tournament, TournamentDataLoader.TournamentDevEntity> {
 
     enum TournamentDevEntity {
