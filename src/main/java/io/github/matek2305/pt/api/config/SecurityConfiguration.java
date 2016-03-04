@@ -11,8 +11,8 @@ import static com.stormpath.spring.config.StormpathWebSecurityConfigurer.stormpa
  * @author Mateusz Urbański <matek2305@gmail.com>.
  */
 @Configuration
-@Profile("demo")
-public class DemoSecurityConfiguration extends WebSecurityConfigurerAdapter {
+@Profile("!dev")
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

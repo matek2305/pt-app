@@ -3,7 +3,6 @@ package io.github.matek2305.pt.domain.repository;
 import io.github.matek2305.pt.domain.config.RepositoryTestConfiguration;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationContextLoader;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.lang.annotation.ElementType;
@@ -16,7 +15,6 @@ import java.lang.annotation.Target;
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
 @Inherited
-@ActiveProfiles("test")
 @IntegrationTest
 @ContextConfiguration(loader = SpringApplicationContextLoader.class, classes = RepositoryTestConfiguration.class)
 @Target(ElementType.TYPE)

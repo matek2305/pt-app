@@ -1,15 +1,10 @@
 package io.github.matek2305.pt.api
 
 import info.solidsoft.mockito.java8.api.WithBDDMockito
-import io.github.matek2305.pt.api.config.ApiConfiguration
 import io.github.matek2305.pt.domain.entity.Match
 import io.github.matek2305.pt.domain.entity.Tournament
 import io.github.matek2305.pt.service.MatchService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.SpringApplicationContextLoader
-import org.springframework.boot.test.WebIntegrationTest
-import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.web.context.WebApplicationContext
 import spock.lang.Specification
@@ -18,12 +13,11 @@ import spock.lang.Unroll
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup
+
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>.
  */
-@ActiveProfiles("test")
-@WebIntegrationTest
-@ContextConfiguration(loader = SpringApplicationContextLoader, classes = [ApiConfiguration, ServiceMockConfiguration])
+@ControllerITSpec
 class MatchesControllerSelfITSpec extends Specification implements WithBDDMockito {
 
     @Autowired
