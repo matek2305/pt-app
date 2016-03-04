@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.SpringApplicationContextLoader
 import org.springframework.boot.test.WebIntegrationTest
 import org.springframework.http.MediaType
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.web.context.WebApplicationContext
@@ -25,6 +26,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
+@ActiveProfiles("test")
 @WebIntegrationTest
 @ContextConfiguration(loader = SpringApplicationContextLoader, classes = [ApiConfiguration, ServiceMockConfiguration])
 class TournamentsControllerSelfITSpec extends Specification implements WithBDDMockito {

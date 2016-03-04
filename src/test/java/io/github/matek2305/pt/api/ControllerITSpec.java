@@ -1,8 +1,8 @@
-package io.github.matek2305.pt.domain.repository;
+package io.github.matek2305.pt.api;
 
-import io.github.matek2305.pt.domain.config.RepositoryTestConfiguration;
-import org.springframework.boot.test.IntegrationTest;
+import io.github.matek2305.pt.api.config.ApiConfiguration;
 import org.springframework.boot.test.SpringApplicationContextLoader;
+import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -17,9 +17,12 @@ import java.lang.annotation.Target;
  */
 @Inherited
 @ActiveProfiles("test")
-@IntegrationTest
-@ContextConfiguration(loader = SpringApplicationContextLoader.class, classes = RepositoryTestConfiguration.class)
+@WebIntegrationTest
+@ContextConfiguration(
+        loader = SpringApplicationContextLoader.class,
+        classes = { ApiConfiguration.class, ServiceMockConfiguration.class }
+)
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RepositoryITSpec {
+public @interface ControllerITSpec {
 }
