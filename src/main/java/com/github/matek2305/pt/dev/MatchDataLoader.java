@@ -3,6 +3,7 @@ package com.github.matek2305.pt.dev;
 import com.github.matek2305.dataloader.annotations.LoadDataAfter;
 import com.github.matek2305.pt.domain.repository.MatchRepository;
 import com.github.matek2305.pt.domain.entity.Match;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,7 +27,9 @@ public class MatchDataLoader implements KeyDataLoader<Match, MatchDataLoader.Mat
     enum MatchDevEntity {
         POLAND_VS_GERMANY,
         CHELSEA_VS_MANUTD,
-        UKRAINE_VS_POLAND
+        UKRAINE_VS_POLAND,
+        LIV_VS_MCI,
+        TOT_VS_ARS,
     }
 
     private final Map<MatchDevEntity, Match> entityMap = new EnumMap<>(MatchDevEntity.class);
@@ -42,9 +45,28 @@ public class MatchDataLoader implements KeyDataLoader<Match, MatchDataLoader.Mat
     @Override
     public void load() {
         log.info("Loading match data ...");
-        createAndSavePredictionAvailable(MatchDevEntity.POLAND_VS_GERMANY, "Poland", "Germany", now().plusDays(2).withHour(20).withMinute(45), EURO_2016);
-        createAndSavePredictionAvailable(MatchDevEntity.UKRAINE_VS_POLAND, "Ukraine", "Poland", now().plusDays(5).withHour(20).withMinute(45), EURO_2016);
-        createAndSavePredictionClosed(MatchDevEntity.CHELSEA_VS_MANUTD, "Chelsea FC", "Manchester United FC", now().plusMinutes(30), PL_2015_16);
+
+        create("Poland", "Germany", now().plusDays(2).withHour(20).withMinute(45), EURO_2016)
+                .status(Match.Status.PREDICTION_AVAILABLE)
+                .saveAs(MatchDevEntity.POLAND_VS_GERMANY);
+
+        create("Ukraine", "Poland", now().plusDays(5).withHour(20).withMinute(45), EURO_2016)
+                .status(Match.Status.PREDICTION_AVAILABLE)
+                .saveAs(MatchDevEntity.UKRAINE_VS_POLAND);
+
+        create("Chelsea FC", "Manchester United FC", now().plusMinutes(30), PL_2015_16)
+                .status(Match.Status.PREDICTION_CLOSED)
+                .saveAs(MatchDevEntity.CHELSEA_VS_MANUTD);
+
+        create("Liverpool FC", "Manchester City FC", now().minusDays(2), PL_2015_16)
+                .result(3, 0)
+                .status(Match.Status.FINISHED)
+                .saveAs(MatchDevEntity.LIV_VS_MCI);
+
+        create("Spurs", "Arsenal", now().plusDays(2).withHour(16).withMinute(0), PL_2015_16)
+                .status(Match.Status.PREDICTION_AVAILABLE)
+                .saveAs(MatchDevEntity.TOT_VS_ARS);
+
         log.info("Match data ({}) loaded successfully", matchRepository.getCount());
     }
 
@@ -53,23 +75,33 @@ public class MatchDataLoader implements KeyDataLoader<Match, MatchDataLoader.Mat
         return entityMap.get(key);
     }
 
-    private void createAndSavePredictionAvailable(MatchDevEntity key, String homeTeamName, String awayTeamName, LocalDateTime startDate, TournamentDevEntity tournamentKey) {
+    private MatchBuilder create(String homeTeamName, String awayTeamName, LocalDateTime startDate, TournamentDevEntity tournamentKey) {
         Match match = new Match();
         match.setHomeTeamName(homeTeamName);
         match.setAwayTeamName(awayTeamName);
         match.setStartDate(startDate);
-        match.setStatus(Match.Status.PREDICTION_AVAILABLE);
         match.setTournament(tournamentDataLoader.getDevEntity(tournamentKey));
-        entityMap.put(key, matchRepository.save(match));
+        return new MatchBuilder(match);
     }
 
-    private void createAndSavePredictionClosed(MatchDevEntity key, String homeTeamName, String awayTeamName, LocalDateTime startDate, TournamentDevEntity tournamentKey) {
-        Match match = new Match();
-        match.setHomeTeamName(homeTeamName);
-        match.setAwayTeamName(awayTeamName);
-        match.setStartDate(startDate);
-        match.setStatus(Match.Status.PREDICTION_CLOSED);
-        match.setTournament(tournamentDataLoader.getDevEntity(tournamentKey));
-        entityMap.put(key, matchRepository.save(match));
+    @RequiredArgsConstructor
+    private class MatchBuilder {
+
+        private final Match match;
+
+        MatchBuilder result(int homeTeamScore, int awayTeamScore) {
+            match.setHomeTeamScore(homeTeamScore);
+            match.setAwayTeamScore(awayTeamScore);
+            return this;
+        }
+
+        MatchBuilder status(Match.Status status) {
+            match.setStatus(status);
+            return this;
+        }
+
+        void saveAs(MatchDevEntity kay) {
+            entityMap.put(kay, matchRepository.save(match));
+        }
     }
 }

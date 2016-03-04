@@ -1,5 +1,9 @@
 package com.github.matek2305.pt.domain.entity;
 
+import java.util.List;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.JoinColumn;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,6 +26,10 @@ public class Tournament extends BaseEntity {
 
     @Column
     private String admin;
+
+    @ElementCollection
+    @CollectionTable(name = "player_points", joinColumns = @JoinColumn(name = "tournament_id"))
+    private List<PlayerPoints> playerPointsList;
 
     public static Tournament create(String name, String description, String admin) {
         Tournament tournament = new Tournament();

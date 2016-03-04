@@ -39,7 +39,7 @@ class TournamentsControllerSelfITSpec extends Specification implements WithBDDMo
         mockMvc = webAppContextSetup(webApplicationContext).build()
     }
 
-    def "should return bad request when trying to create tournament without name"() {
+    def "should return bad request when trying to create tournament with blank name"() {
         given:
             def requestContent = Json.createObjectBuilder()
                     .add('name', ' ')
