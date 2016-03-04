@@ -2,24 +2,24 @@ package io.github.matek2305.pt.service;
 
 import io.github.matek2305.pt.domain.entity.Match;
 import io.github.matek2305.pt.domain.repository.MatchRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
-@TransactionalService
+@Service
+@Transactional
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class MatchService {
 
     private final MatchRepository matchRepository;
-
-    @Autowired
-    public MatchService(MatchRepository matchRepository) {
-        this.matchRepository = matchRepository;
-    }
 
     public Optional<Match> getMatch(final int matchId) {
         return matchRepository.findOptional(matchId);

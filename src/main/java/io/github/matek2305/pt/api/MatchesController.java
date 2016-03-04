@@ -7,6 +7,7 @@ import io.github.matek2305.pt.domain.entity.MatchPrediction;
 import io.github.matek2305.pt.exception.ResourceNotFoundException;
 import io.github.matek2305.pt.service.MatchPredictionService;
 import io.github.matek2305.pt.service.MatchService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,18 +27,11 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  */
 @RestController
 @RequestMapping("/matches")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class MatchesController extends BaseExceptionHandler {
 
     private final MatchService matchService;
     private final MatchPredictionService matchPredictionService;
-
-    @Autowired
-    public MatchesController(
-            final MatchService matchService,
-            final MatchPredictionService matchPredictionService) {
-        this.matchService = matchService;
-        this.matchPredictionService = matchPredictionService;
-    }
 
     @RequestMapping(value = "/{matchId}", method = RequestMethod.GET)
     public MatchResource getMatch(@PathVariable("matchId") final int matchId) {

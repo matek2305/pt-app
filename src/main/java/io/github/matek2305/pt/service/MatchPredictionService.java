@@ -6,28 +6,25 @@ import io.github.matek2305.pt.domain.repository.MatchPredictionRepository;
 import io.github.matek2305.pt.domain.repository.MatchRepository;
 import io.github.matek2305.pt.exception.ForbiddenResourceException;
 import io.github.matek2305.pt.exception.ResourceNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
-@TransactionalService
+@Service
+@Transactional
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class MatchPredictionService {
 
     private final MatchPredictionRepository matchPredictionRepository;
     private final MatchRepository matchRepository;
-
-    @Autowired
-    public MatchPredictionService(
-            final MatchPredictionRepository matchPredictionRepository,
-            final MatchRepository matchRepository) {
-        this.matchPredictionRepository = matchPredictionRepository;
-        this.matchRepository = matchRepository;
-    }
 
     public Optional<MatchPrediction> getMatchPrediction(final int predictionId) {
         return matchPredictionRepository.findOptional(predictionId);

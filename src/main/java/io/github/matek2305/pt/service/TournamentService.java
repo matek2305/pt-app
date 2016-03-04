@@ -7,8 +7,11 @@ import io.github.matek2305.pt.domain.repository.MatchRepository;
 import io.github.matek2305.pt.domain.repository.TournamentRepository;
 import io.github.matek2305.pt.exception.ResourceNotFoundException;
 import io.github.matek2305.pt.exception.ValidationFailedException;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -20,23 +23,15 @@ import static pl.wavesoftware.eid.utils.EidPreconditions.checkNotNull;
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
-@TransactionalService
+@Service
+@Transactional
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TournamentService {
 
     private final AuthenticationFacade authenticationFacade;
 
     private final TournamentRepository tournamentRepository;
     private final MatchRepository matchRepository;
-
-    @Autowired
-    public TournamentService(
-            final AuthenticationFacade authenticationFacade,
-            final TournamentRepository tournamentRepository,
-            final MatchRepository matchRepository) {
-        this.authenticationFacade = authenticationFacade;
-        this.tournamentRepository = tournamentRepository;
-        this.matchRepository = matchRepository;
-    }
 
     public Optional<Tournament> getTournament(final int id) {
         return tournamentRepository.findOptional(id);

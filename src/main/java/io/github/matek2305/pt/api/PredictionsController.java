@@ -3,6 +3,7 @@ package io.github.matek2305.pt.api;
 import io.github.matek2305.pt.api.resource.PredictionResource;
 import io.github.matek2305.pt.exception.ResourceNotFoundException;
 import io.github.matek2305.pt.service.MatchPredictionService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,14 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/predictions")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PredictionsController {
 
     private final MatchPredictionService matchPredictionService;
-
-    @Autowired
-    public PredictionsController(MatchPredictionService matchPredictionService) {
-        this.matchPredictionService = matchPredictionService;
-    }
 
     @RequestMapping(value = "/{predictionId}", method = RequestMethod.GET)
     public PredictionResource getMatchPrediction(@PathVariable("predictionId") final int predictionId) {
