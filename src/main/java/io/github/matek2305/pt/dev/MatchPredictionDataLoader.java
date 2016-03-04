@@ -1,6 +1,5 @@
 package io.github.matek2305.pt.dev;
 
-import com.github.matek2305.dataloader.DataLoader;
 import com.github.matek2305.dataloader.annotations.LoadDataAfter;
 import io.github.matek2305.pt.domain.entity.Match;
 import io.github.matek2305.pt.domain.entity.MatchPrediction;
@@ -12,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
 @Slf4j
-@DevComponent
+@DataLoader
 @LoadDataAfter(MatchDataLoader.class)
-public class MatchPredictionDataLoader implements DataLoader {
+public class MatchPredictionDataLoader implements com.github.matek2305.dataloader.DataLoader {
 
     private final SaveAndCountRepository<MatchPrediction> matchPredictionRepository;
     private final MatchDataLoader matchDataLoader;
@@ -30,15 +29,18 @@ public class MatchPredictionDataLoader implements DataLoader {
     @Override
     public void load() {
         log.info("Loading prediction data ...");
-        createAndSavePredicitonOpen(0, 0, matchDataLoader.getDevEntity(MatchDataLoader.MatchDevEntity.POLAND_VS_GERMANY));
-        createAndSavePredicitonOpen(1, 1, matchDataLoader.getDevEntity(MatchDataLoader.MatchDevEntity.POLAND_VS_GERMANY));
-        createAndSavePredicitonOpen(0, 2, matchDataLoader.getDevEntity(MatchDataLoader.MatchDevEntity.POLAND_VS_GERMANY));
-        createAndSavePredicitonOpen(1, 3, matchDataLoader.getDevEntity(MatchDataLoader.MatchDevEntity.UKRAINE_VS_POLAND));
-        createAndSavePredicitonOpen(0, 2, matchDataLoader.getDevEntity(MatchDataLoader.MatchDevEntity.UKRAINE_VS_POLAND));
+        createAndSavePredicitonOpen(0, 0, MatchDataLoader.MatchDevEntity.POLAND_VS_GERMANY, DevUsernames.MURBANSKI);
+        createAndSavePredicitonOpen(1, 1, MatchDataLoader.MatchDevEntity.POLAND_VS_GERMANY, DevUsernames.JKOWALSKI);
+        createAndSavePredicitonOpen(0, 2, MatchDataLoader.MatchDevEntity.POLAND_VS_GERMANY, DevUsernames.PRAK);
+        createAndSavePredicitonOpen(1, 3, MatchDataLoader.MatchDevEntity.UKRAINE_VS_POLAND, DevUsernames.MURBANSKI);
+        createAndSavePredicitonOpen(0, 2, MatchDataLoader.MatchDevEntity.UKRAINE_VS_POLAND, DevUsernames.ZMARTYNIUK);
         log.info("Prediction data ({}) loaded successfully", matchPredictionRepository.getCount());
     }
 
-    private MatchPrediction createAndSavePredicitonOpen(int homeTeamScore, int awayTeamScore, Match match) {
+    private MatchPrediction createAndSavePredicitonOpen(
+            int homeTeamScore, int awayTeamScore, MatchDataLoader.MatchDevEntity matchDevEntity, String username) {
+        Match match = matchDataLoader.getDevEntity(matchDevEntity);
+
         MatchPrediction matchPrediction = new MatchPrediction();
         matchPrediction.setHomeTeamScore(homeTeamScore);
         matchPrediction.setAwayTeamScore(awayTeamScore);
@@ -46,6 +48,7 @@ public class MatchPredictionDataLoader implements DataLoader {
         matchPrediction.setStatus(MatchPrediction.Status.OPEN);
         matchPrediction.setMatch(match);
         matchPrediction.setPoints(0);
+        matchPrediction.setUsername(username);
         return matchPredictionRepository.save(matchPrediction);
     }
 }

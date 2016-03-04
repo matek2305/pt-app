@@ -28,7 +28,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RestController
 @RequestMapping("/matches")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class MatchesController {
+public class MatchesController extends BaseExceptionHandler {
 
     private final MatchService matchService;
     private final MatchPredictionService matchPredictionService;

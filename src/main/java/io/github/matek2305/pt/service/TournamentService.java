@@ -1,5 +1,6 @@
 package io.github.matek2305.pt.service;
 
+import io.github.matek2305.pt.auth.AuthenticationFacade;
 import io.github.matek2305.pt.domain.entity.Match;
 import io.github.matek2305.pt.domain.entity.Tournament;
 import io.github.matek2305.pt.domain.repository.MatchRepository;
@@ -7,6 +8,7 @@ import io.github.matek2305.pt.domain.repository.TournamentRepository;
 import io.github.matek2305.pt.exception.ResourceNotFoundException;
 import io.github.matek2305.pt.exception.ValidationFailedException;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,8 @@ import static pl.wavesoftware.eid.utils.EidPreconditions.checkNotNull;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TournamentService {
 
+    private final AuthenticationFacade authenticationFacade;
+
     private final TournamentRepository tournamentRepository;
     private final MatchRepository matchRepository;
 
@@ -40,7 +44,7 @@ public class TournamentService {
             throw new ValidationFailedException("Nazwa " + name + " jest zajęta, wybierz inną.");
         }
 
-        Tournament tournament = Tournament.create(name, description);
+        Tournament tournament = Tournament.create(name, description, authenticationFacade.getLoggedUsername());
         return tournamentRepository.save(tournament);
     }
 
@@ -52,7 +56,9 @@ public class TournamentService {
         Tournament tournament = tournamentRepository.findOptional(tournamentId)
                 .orElseThrow(() -> new ResourceNotFoundException("tournament resource not found for id=" + tournamentId));
 
-        if (startDate.isBefore(LocalDateTime.now())) {
+        if (!StringUtils.equals(authenticationFacade.getLoggedUsername(), tournament.getAdmin())) {
+            throw new ValidationFailedException("Nie masz uprawnień do dodawania meczów do tego turnieju");
+        } else if (startDate.isBefore(LocalDateTime.now())) {
             throw new ValidationFailedException("Nieprawidłowe dane meczu, data rozpoczęcia nie może być wcześniejsza niż aktualna");
         } else if (startDate.isBefore(LocalDateTime.now().plusMinutes(90))) {
             throw new ValidationFailedException("Nieprawidłowe dane meczu, data rozpoczęcia nie może być poźniejsza niż " + LocalDateTime.now().minusMinutes(90));

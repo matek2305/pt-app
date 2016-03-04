@@ -4,16 +4,12 @@ import info.solidsoft.mockito.java8.api.WithBDDMockito
 import io.github.matek2305.pt.domain.entity.Tournament
 import io.github.matek2305.pt.exception.ValidationFailedException
 import io.github.matek2305.pt.service.TournamentService
+import javax.json.Json
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.SpringApplicationContextLoader
-import org.springframework.boot.test.WebIntegrationTest
 import org.springframework.http.MediaType
-import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.web.context.WebApplicationContext
 import spock.lang.Specification
-
-import javax.json.Json
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
@@ -21,11 +17,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup
+
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
-@WebIntegrationTest
-@ContextConfiguration(loader = SpringApplicationContextLoader, classes = [ApiConfiguration, ServiceMockConfiguration])
+@ControllerITSpec
 class TournamentsControllerSelfITSpec extends Specification implements WithBDDMockito {
 
     @Autowired

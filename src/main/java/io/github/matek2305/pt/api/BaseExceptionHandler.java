@@ -1,6 +1,7 @@
 package io.github.matek2305.pt.api;
 
 import io.github.matek2305.pt.api.response.ValidationFailedResponse;
+import io.github.matek2305.pt.exception.ForbiddenResourceException;
 import io.github.matek2305.pt.exception.ResourceNotFoundException;
 import io.github.matek2305.pt.exception.ValidationFailedException;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,12 @@ public abstract class BaseExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ResourceNotFoundException.class)
     public String resourceNotFoundExceptionHandler(ResourceNotFoundException ex) {
+        return ex.getMessage();
+    }
+
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(ForbiddenResourceException.class)
+    public String forbiddenResourceExceptionHandler(ForbiddenResourceException ex) {
         return ex.getMessage();
     }
 }

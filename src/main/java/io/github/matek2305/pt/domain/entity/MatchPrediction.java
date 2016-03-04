@@ -32,6 +32,9 @@ public class MatchPrediction extends BaseEntity {
     private int points;
 
     @Column
+    private String username;
+
+    @Column
     @Enumerated(EnumType.STRING)
     private Status status;
 

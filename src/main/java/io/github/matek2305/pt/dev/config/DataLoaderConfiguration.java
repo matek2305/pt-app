@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Profile;
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
-@Profile("dev")
+@Profile({"dev", "demo"})
 @Configuration
 @EnableDataLoader
-public class DevDataLoaderConfiguration {
+public class DataLoaderConfiguration {
 }
