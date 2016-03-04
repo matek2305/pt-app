@@ -10,6 +10,7 @@ import io.github.matek2305.pt.domain.entity.Tournament;
 import io.github.matek2305.pt.exception.ResourceNotFoundException;
 import io.github.matek2305.pt.service.MatchService;
 import io.github.matek2305.pt.service.TournamentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -34,16 +35,11 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  */
 @RestController
 @RequestMapping("/tournaments")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TournamentsController extends BaseExceptionHandler {
 
     private final TournamentService tournamentService;
     private final MatchService matchService;
-
-    @Autowired
-    public TournamentsController(TournamentService tournamentService, MatchService matchService) {
-        this.tournamentService = tournamentService;
-        this.matchService = matchService;
-    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public TournamentResource getTournament(@PathVariable("id") final int tournamentId) {
