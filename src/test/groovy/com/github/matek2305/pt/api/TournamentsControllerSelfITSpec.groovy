@@ -1,9 +1,12 @@
 package com.github.matek2305.pt.api
 
-import info.solidsoft.mockito.java8.api.WithBDDMockito
+import com.github.matek2305.pt.domain.entity.Match
 import com.github.matek2305.pt.domain.entity.Tournament
 import com.github.matek2305.pt.exception.ValidationFailedException
 import com.github.matek2305.pt.service.TournamentService
+import info.solidsoft.mockito.java8.api.WithBDDMockito
+import java.time.LocalDateTime
+import java.time.Month
 import javax.json.Json
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -17,7 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup
-
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
@@ -101,5 +103,49 @@ class TournamentsControllerSelfITSpec extends Specification implements WithBDDMo
         expect:
             mockMvc.perform(get("/tournaments/${tournamentId}"))
                     .andExpect(status().isNotFound())
+    }
+
+    def "should return CREATED when POST to /tournaments/{tournamenId}/matches"() {
+        given:
+            def tournamentId = 1
+            def homeTeamName = "Home team name"
+            def awayTeamName = "Away team name"
+            def startDateString = "2016-03-09T20:45"
+            def request = Json.createObjectBuilder()
+                    .add("homeTeamName", homeTeamName)
+                    .add("awayTeamName", awayTeamName)
+                    .add("startDate", startDateString)
+                    .build()
+                    .toString()
+        and:
+            given(tournamentService.addTournamentMatch(eq(tournamentId), eq(homeTeamName), eq(awayTeamName), eq(LocalDateTime.of(2016, Month.MARCH, 9, 20, 45))))
+                    .willReturn(matchEntityExample())
+        expect:
+            mockMvc.perform(post("/tournaments/${tournamentId}/matches").content(request).contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isCreated())
+                    .andExpect(jsonPath('$._links.self').exists())
+                    .andExpect(jsonPath('$._links.tournament').exists())
+    }
+
+    private static Match matchEntityExample() {
+        return new Match(
+                id: 1,
+                homeTeamName: 'homeTeamName',
+                awayTeamName: 'awayTeamName',
+                homeTeamScore: 0,
+                awayTeamScore: 0,
+                status: Match.Status.PREDICTION_AVAILABLE,
+                startDate: LocalDateTime.now(),
+                tournament: tournamentEntityExample()
+        )
+    }
+
+    private static Tournament tournamentEntityExample() {
+        return new Tournament(
+                id: 1,
+                name: 'tournament',
+                description: 'desription',
+                admin: 'admin'
+        )
     }
 }

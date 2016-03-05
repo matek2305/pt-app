@@ -82,7 +82,7 @@ public class TournamentsController extends BaseExceptionHandler {
     @ResponseStatus(HttpStatus.CREATED)
     public MatchResource addTournamentMatch(
             @PathVariable("id") final int tournamentId,
-            @NotNull @Valid @RequestBody AddTournamentMatchRequest request) {
+            @Valid @RequestBody AddTournamentMatchRequest request) {
         Match match = tournamentService.addTournamentMatch(tournamentId, request.getHomeTeamName(), request.getAwayTeamName(), request.getStartDate());
         return MatchResource.fromEntity(match);
     }
