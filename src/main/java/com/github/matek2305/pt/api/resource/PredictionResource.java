@@ -3,14 +3,12 @@ package com.github.matek2305.pt.api.resource;
 import com.github.matek2305.pt.api.MatchesController;
 import com.github.matek2305.pt.api.PredictionsController;
 import com.github.matek2305.pt.domain.entity.MatchPrediction;
+import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.hateoas.ResourceSupport;
-
-import java.time.LocalDateTime;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 /**

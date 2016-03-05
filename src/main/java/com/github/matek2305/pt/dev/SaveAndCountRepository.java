@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
 @RequiredArgsConstructor
-class SaveAndCountRepository<T extends BaseEntity>{
+class SaveAndCountRepository<T extends BaseEntity> {
 
     private final BaseRepository<T> repository;
 

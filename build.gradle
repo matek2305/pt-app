@@ -16,6 +16,7 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'jacoco'
+apply plugin: 'checkstyle'
 
 jar {
 	baseName = 'pt-app'

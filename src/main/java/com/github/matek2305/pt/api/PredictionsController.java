@@ -25,6 +25,6 @@ public class PredictionsController {
     public PredictionResource getMatchPrediction(@PathVariable("predictionId") final int predictionId) {
         return matchPredictionService.getMatchPrediction(predictionId)
                 .map(PredictionResource::fromEntity)
-                .orElseThrow(() -> new ResourceNotFoundException("match prediction not found for id="+predictionId));
+                .orElseThrow(() -> new ResourceNotFoundException("match prediction not found for id=%s", predictionId));
     }
 }
