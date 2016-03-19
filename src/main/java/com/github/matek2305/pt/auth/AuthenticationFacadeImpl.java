@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * @author Mateusz Urbański <matek2305@gmail.com>.
  */
 @Component
-@Profile("demo")
+@Profile("prod")
 public class AuthenticationFacadeImpl implements AuthenticationFacade {
 
     @Override
