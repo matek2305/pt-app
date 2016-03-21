@@ -5,7 +5,6 @@ import com.github.matek2305.pt.domain.entity.Tournament;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.hateoas.ResourceSupport;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -25,7 +24,7 @@ public class TournamentResource extends ResourceSupport {
         TournamentResource tournamentResource =
                 new TournamentResource(tournament.getName(), tournament.getDescription(), tournament.getAdmin());
 
-        tournamentResource.add(ControllerLinkBuilder.linkTo(methodOn(TournamentsController.class).getTournament(tournament.getId())).withSelfRel());
+        tournamentResource.add(linkTo(methodOn(TournamentsController.class).getTournament(tournament.getId())).withSelfRel());
         tournamentResource.add(linkTo(methodOn(TournamentsController.class).getMatchListFromTournament(tournament.getId(), 0, 5)).withRel("matches"));
 
         return tournamentResource;

@@ -3,12 +3,13 @@ package com.github.matek2305.pt.api.resource;
 import com.github.matek2305.pt.api.MatchesController;
 import com.github.matek2305.pt.api.PredictionsController;
 import com.github.matek2305.pt.domain.entity.MatchPrediction;
-import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.hateoas.ResourceSupport;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 
+import java.time.LocalDateTime;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 /**
@@ -32,8 +33,8 @@ public class PredictionResource extends ResourceSupport {
                 matchPrediction.getPoints(),
                 matchPrediction.getStatus());
 
-        resource.add(ControllerLinkBuilder.linkTo(methodOn(PredictionsController.class).getMatchPrediction(matchPrediction.getId())).withSelfRel());
-        resource.add(ControllerLinkBuilder.linkTo(methodOn(MatchesController.class).getMatch(matchPrediction.getMatch().getId())).withRel("match"));
+        resource.add(linkTo(methodOn(PredictionsController.class).getMatchPrediction(matchPrediction.getId())).withSelfRel());
+        resource.add(linkTo(methodOn(MatchesController.class).getMatch(matchPrediction.getMatch().getId())).withRel("match"));
 
         return resource;
     }

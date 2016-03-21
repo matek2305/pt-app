@@ -8,7 +8,6 @@ import lombok.EqualsAndHashCode;
 import org.springframework.hateoas.ResourceSupport;
 
 import java.time.LocalDateTime;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -37,7 +36,7 @@ public class MatchResource extends ResourceSupport {
                 match.getStatus()
         );
 
-        matchResource.add(ControllerLinkBuilder.linkTo(methodOn(MatchesController.class).getMatch(match.getId())).withSelfRel());
+        matchResource.add(linkTo(methodOn(MatchesController.class).getMatch(match.getId())).withSelfRel());
         matchResource.add(linkTo(methodOn(TournamentsController.class).getTournament(match.getTournament().getId())).withRel("tournament"));
 
         if (match.getStatus() != Match.Status.PREDICTION_AVAILABLE) {
